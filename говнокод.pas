@@ -65,7 +65,7 @@ begin
   rewrite(output);
   readln(txt);
   dl := length(txt);
-  b:=new string [dl+2];
+  b := new string[dl + 2];
   for j := 1 to length(hex(length(txt))) do
     write(output, hex(length(txt))[j]);
   write(output, ' ');
@@ -83,50 +83,50 @@ begin
   end;
   write(output, inttostr((a[2] + a[5]) mod 10)[1], inttostr((a[4] + a[1]) mod 10)[1], inttostr((a[3] + a[5]) mod 10)[1], inttostr((a[2] + a[6]) mod 10)[1], inttostr((a[3] + a[6]) mod 10)[1], inttostr((a[1] + a[7]) mod 10)[1], inttostr((a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7]) mod 10)[1]);
   setlength(txt, 1);
-  j:=1;
-  i:=0;
-seek (output,0);
-  while not(eof(output)) do
+  j := 1;
+  i := 0;
+  seek(output, 0);
+  while not (eof(output)) do
   begin
-  read (output, txt[1]);
-  if (txt=' ') then
-  begin
-  i:=i+1;
-  j:=1;
-  end
-  else
-  begin
-  insert (txt,b[i],j);
-  j:=j+1
+    read(output, txt[1]);
+    if (txt = ' ') then
+    begin
+      i := i + 1;
+      j := 1;
+    end
+    else
+    begin
+      insert(txt, b[i], j);
+      j := j + 1
+    end;
   end;
-  end;
-  rewrite (output);
-  for i:=1 to (length (b)-2) do
+  rewrite(output);
+  for i := 1 to (length(b) - 2) do
   begin
-  key:=1;
-      if (b[i][2] = '0') and (b[i][3] = '0') and (b[i][4] = '0') then
+    key := 1;
+    if (b[i][2] = '0') and (b[i][3] = '0') and (b[i][4] = '0') then
       count := 1;
-    if (b[i][3] = '0') and (b[i][4] = '0') and (b[i][2]<>'0') then
+    if (b[i][3] = '0') and (b[i][4] = '0') and (b[i][2] <> '0') then
       count := 2;
-    if (b[i][4] = '0') and (b[i][3]<>'0') and (b[i][2]<>'0') then
+    if (b[i][4] = '0') and (b[i][3] <> '0') and (b[i][2] <> '0') then
       count := 3;
     if (b[i][4] <> '0') and ((b[i][1] <> '0') or (b[i][2] <> '0') or (b[i][3] <> '0')) then
       count := 4;
-      k:=random (3,4);
-      for j:=1 to count do
-      b[i][k+j]:=b[i][j];
-      delete(b[i],1,2);
-      str(count,txt);
-      insert(txt,b[i],1);
-      str (k,txt);
-      insert (txt,b[i],2);
-    end;
-    for i:=0 to (length (b)-1) do
-    begin
-    for j:=1 to length(b[i]) do
-    write (output, b[i][j]);
-    write (output, ' ');
-    end;
+    k := random(3, 4);
+    for j := 1 to count do
+      b[i][k + j - 1] := b[i][j];
+    delete(b[i], 1, 2);
+    str(count, txt);
+    insert(txt, b[i], 1);
+    str(k, txt);
+    insert(txt, b[i], 2);
+  end;
+  for i := 0 to (length(b) - 1) do
+  begin
+    for j := 1 to length(b[i]) do
+      write(output, b[i][j]);
+    write(output, ' ');
+  end;
   writeln('шифрование завершено, проверьте папку productofgovno в корне диска C');
   close(output);
 end.
