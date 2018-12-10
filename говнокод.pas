@@ -18,6 +18,12 @@ var
 var
   count: byte;
 
+var
+  check1, check2: boolean;
+
+var
+  chn: integer;
+
 function hex(a: word): string;
 var
   b, i, j: integer;
@@ -101,9 +107,9 @@ begin
     end;
   end;
   rewrite(output);
+  chn:=1;
   for i := 1 to (length(b) - 2) do
   begin
-    key := 1;
     if (b[i][2] = '0') and (b[i][3] = '0') and (b[i][4] = '0') then
       count := 1;
     if (b[i][3] = '0') and (b[i][4] = '0') and (b[i][2] <> '0') then
@@ -114,12 +120,50 @@ begin
       count := 4;
     k := random(3, 4);
     for j := 1 to count do
-      b[i][k + j - 1] := b[i][j];
+      b[i][k + j - 1] := b[i][j];  
     delete(b[i], 1, 2);
-    str(count, txt);
-    insert(txt, b[i], 1);
-    str(k, txt);
-    insert(txt, b[i], 2);
+    if (count > a[chn]) then
+    begin
+      str(10 + a[chn] - count, txt);
+      insert(txt, b[i], 1);
+      chn := chn + 2;
+      check1:=true;
+      if chn = 8 then
+        chn := 1;
+      if chn = 9 then
+        chn := 2;
+    end
+    else
+    begin
+      str(a[chn] - count, txt);
+      insert(txt, b[i], 1);
+      chn := chn + 2;
+      if chn = 8 then
+        chn := 1;
+      if chn = 9 then
+        chn := 2;
+    end;
+    if (k > a[chn]) then
+    begin
+      str(10 + a[chn] - k, txt);
+      insert(txt, b[i], 2);
+      chn := chn + 2;
+      check2:=true;
+      if chn = 8 then
+        chn := 1;
+      if chn = 9 then
+        chn := 2;
+    end
+    else
+    begin
+      str(10 + a[chn] - k, txt);
+      insert(txt, b[i], 2);
+      chn := chn + 2;
+      if chn = 8 then
+        chn := 1;
+      if chn = 9 then
+        chn := 2;
+    end;
   end;
   for i := 0 to (length(b) - 1) do
   begin
