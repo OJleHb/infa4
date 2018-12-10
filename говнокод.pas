@@ -57,17 +57,17 @@ begin
 end;
 
 begin
-  writeln('создаю каталог в корне диска C,там будет лежать файл результат');
+  writeln('Generating program folder...');
   mkdir('C:\productofgovno');
   chdir('C:\productofgovno');
   mkdir('output');
   chdir('output');
-  writeln('генерирую ключ, запишите его, он пригодится для дальнейшего декодирования');
+  writeln('Generating key, please do not lose it...');
   randomize;
   key := random(8999999) + 1000000;
   writeln(key);
   assign(output, 'C:/productofgovno/output/output.txt');
-  writeln('введите текст для зашифровки');
+  writeln('Please enter message below...');
   rewrite(output);
   readln(txt);
   dl := length(txt);
@@ -81,7 +81,7 @@ begin
       write(output, hex(ord(txt[i]))[j]);
     write(output, ' ');
   end;
-  writeln('генерирую контрольную сумму');
+  writeln('Generating checksum...');
   for i := 1 to 7 do
   begin
     a[i] := key mod 10;
@@ -107,7 +107,7 @@ begin
     end;
   end;
   rewrite(output);
-  chn:=1;
+  chn := 1;
   for i := 1 to (length(b) - 2) do
   begin
     if (b[i][2] = '0') and (b[i][3] = '0') and (b[i][4] = '0') then
@@ -127,7 +127,7 @@ begin
       str(10 + a[chn] - count, txt);
       insert(txt, b[i], 1);
       chn := chn + 2;
-      check1:=true;
+      check1 := true;
       if chn = 8 then
         chn := 1;
       if chn = 9 then
@@ -148,7 +148,7 @@ begin
       str(10 + a[chn] - k, txt);
       insert(txt, b[i], 2);
       chn := chn + 2;
-      check2:=true;
+      check2 := true;
       if chn = 8 then
         chn := 1;
       if chn = 9 then
@@ -164,6 +164,56 @@ begin
       if chn = 9 then
         chn := 2;
     end;
+    if k = 3 then
+    begin
+      delete(b[i], 7, 1);
+      if (check1 = true) and (check2 = true) then
+      begin
+        str(0, txt);
+        insert(txt, b[i], 6);
+      end;
+      if (check1 = true) and (check2 = false) then
+      begin
+        str(1, txt);
+        insert(txt, b[i], 6)
+      end;
+      if (check1 = false) and (check2 = true) then
+      begin
+        str(2, txt);
+        insert(txt, b[i], 6)
+      end;
+      if (check1 = false) and (check2 = false) then
+      begin
+        str(random (3,9), txt);
+        insert(txt, b[i], 6)
+      end;
+      check1:=false;
+      check2:=false;
+    end;
+    if (k=4) then
+    begin
+    delete(b[i], 3, 1);
+      if (check1 = true) and (check2 = true) then
+      begin
+        str(0, txt);
+        insert(txt, b[i], 2);
+      end;
+      if (check1 = true) and (check2 = false) then
+      begin
+        str(1, txt);
+        insert(txt, b[i], 2)
+      end;
+      if (check1 = false) and (check2 = true) then
+      begin
+        str(2, txt);
+        insert(txt, b[i], 2)
+      end;
+      if (check1 = false) and (check2 = false) then
+      begin
+        str(random (3,9), txt);
+        insert(txt, b[i], 2)
+      end;
+      end;
   end;
   for i := 0 to (length(b) - 1) do
   begin
@@ -171,7 +221,9 @@ begin
       write(output, b[i][j]);
     write(output, ' ');
   end;
-  writeln('шифрование завершено, проверьте папку productofgovno в корне диска C');
+  writeln('Task failed succesfully, check folder C:\productofgovno');
   close(output);
+  writeln('Press enter to continue...');
+  readln;
 end.
 
