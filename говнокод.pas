@@ -48,9 +48,9 @@ begin
     if (b = 15) then insert('F', d, i);
     a := a div 16;
   until (a = 0);
-  if i < 6 then
+  if i < 7 then
   begin
-    for j := i to 6 do
+    for j := i to 7 do
       insert('0', d, i + 1);
   end;
   hex := d;
@@ -87,7 +87,7 @@ begin
     a[i] := key mod 10;
     key := key div 10;
   end;
-  write(output, inttostr((a[2] + a[5]) mod 10)[1], inttostr((a[4] + a[1]) mod 10)[1], inttostr((a[3] + a[5]) mod 10)[1], inttostr((a[2] + a[6]) mod 10)[1], inttostr((a[3] + a[6]) mod 10)[1], inttostr((a[1] + a[7]) mod 10)[1], inttostr((a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7]) mod 10)[1]);
+  write(output, inttostr((a[2] + a[5]) mod 10)[1], inttostr((a[4] + a[1]) mod 10)[1], inttostr((a[3] + a[5]) mod 10)[1], inttostr((a[2] + a[6]) mod 10)[1], inttostr((a[3] + a[6]) mod 10)[1], inttostr((a[1] + a[7]) mod 10)[1], inttostr((a[4] + a[7]) mod 10)[1], inttostr((a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7]) mod 10)[1]);
   setlength(txt, 1);
   j := 1;
   i := 0;
@@ -119,8 +119,8 @@ begin
     if (b[i][4] <> '0') and ((b[i][1] <> '0') or (b[i][2] <> '0') or (b[i][3] <> '0')) then
       count := 4;
     k := random(3, 4);
-    for j := 1 to count do
-      b[i][k + j - 1] := b[i][j];  
+    for j := count downto 1 do
+      swap(b[i][j], b[i][j + k - 1]);
     delete(b[i], 1, 2);
     if (count > a[chn]) then
     begin
@@ -156,7 +156,7 @@ begin
     end
     else
     begin
-      str(10 + a[chn] - k, txt);
+      str(a[chn] - k, txt);
       insert(txt, b[i], 2);
       chn := chn + 2;
       if chn = 8 then
@@ -170,50 +170,68 @@ begin
       if (check1 = true) and (check2 = true) then
       begin
         str(0, txt);
-        insert(txt, b[i], 6);
+        insert(txt, b[i], 7);
       end;
       if (check1 = true) and (check2 = false) then
       begin
         str(1, txt);
-        insert(txt, b[i], 6)
+        insert(txt, b[i], 7)
       end;
       if (check1 = false) and (check2 = true) then
       begin
         str(2, txt);
-        insert(txt, b[i], 6)
+        insert(txt, b[i], 7)
       end;
       if (check1 = false) and (check2 = false) then
       begin
-        str(random (3,9), txt);
-        insert(txt, b[i], 6)
+        str(random(3, 9), txt);
+        insert(txt, b[i], 7)
       end;
-      check1:=false;
-      check2:=false;
+      delete(b[i], 8, 1);
+      str(random(1, 4) * 2, txt);
+      insert(txt, b[i], 7);
+      if count < 4 then
+      begin
+        for j := 1 to (4 - count) do        
+          b[i][k + count + j - 1] := inttostr(random(1, 9))[1];
+      end;
+      check1 := false;
+      check2 := false;
     end;
-    if (k=4) then
+    if (k = 4) then
     begin
-    delete(b[i], 3, 1);
+      delete(b[i], 3, 1);
       if (check1 = true) and (check2 = true) then
       begin
         str(0, txt);
-        insert(txt, b[i], 2);
+        insert(txt, b[i], 3);
       end;
       if (check1 = true) and (check2 = false) then
       begin
         str(1, txt);
-        insert(txt, b[i], 2)
+        insert(txt, b[i], 3)
       end;
       if (check1 = false) and (check2 = true) then
       begin
         str(2, txt);
-        insert(txt, b[i], 2)
+        insert(txt, b[i], 3)
       end;
       if (check1 = false) and (check2 = false) then
       begin
-        str(random (3,9), txt);
-        insert(txt, b[i], 2)
+        str(random(3, 9), txt);
+        insert(txt, b[i], 3)
       end;
+      delete(b[i], 8, 1);
+      str(random(0, 4) * 2 + 1, txt);
+      insert(txt, b[i], 8);
+      if count < 4 then
+      begin
+        for j := 1 to (4 - count) do
+          b[i][k + count + j - 1] := inttostr(random(1, 9))[1];
       end;
+      check1 := false;
+      check2 := false;
+    end;
   end;
   for i := 0 to (length(b) - 1) do
   begin
