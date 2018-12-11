@@ -87,7 +87,7 @@ begin
     a[i] := key mod 10;
     key := key div 10;
   end;
-  write(output, inttostr((a[2] + a[5]) mod 10)[1], inttostr((a[4] + a[1]) mod 10)[1], inttostr((a[3] + a[5]) mod 10)[1], inttostr((a[2] + a[6]) mod 10)[1], inttostr((a[3] + a[6]) mod 10)[1], inttostr((a[1] + a[7]) mod 10)[1], inttostr((a[4] + a[7]) mod 10)[1], inttostr((a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7]) mod 10)[1]);
+  write(output, inttostr((a[2] + a[5]) mod 10)[1], inttostr((a[4] + a[1]) mod 10)[1], inttostr((a[3] + a[5]) mod 10)[1], inttostr((a[2] + a[6]) mod 10)[1], inttostr((a[3] + a[6]) mod 10)[1], inttostr((a[1] + a[7]) mod 10)[1], inttostr((a[4] + a[7]) mod 10)[1], inttostr((a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]) mod 10)[1]);
   setlength(txt, 1);
   j := 1;
   i := 0;
