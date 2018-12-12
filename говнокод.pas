@@ -114,7 +114,7 @@ begin
       count := 1;
     if (b[i][3] = '0') and (b[i][4] = '0') and (b[i][2] <> '0') then
       count := 2;
-    if (b[i][4] = '0') and (b[i][3] <> '0') and (b[i][2] <> '0') then
+    if (b[i][4] = '0') and (b[i][3] <> '0') then
       count := 3;
     if (b[i][4] <> '0') and ((b[i][1] <> '0') or (b[i][2] <> '0') or (b[i][3] <> '0')) then
       count := 4;
@@ -125,7 +125,7 @@ begin
     if (count > a[chn]) then
     begin
       str(10 + a[chn] - count, txt);
-      insert(txt, b[i], 1);
+      insert(txt[1], b[i], 1);
       chn := chn + 2;
       check1 := true;
       if chn = 8 then
@@ -136,7 +136,7 @@ begin
     else
     begin
       str(a[chn] - count, txt);
-      insert(txt, b[i], 1);
+      insert(txt[1], b[i], 1);
       chn := chn + 2;
       if chn = 8 then
         chn := 1;
@@ -146,7 +146,7 @@ begin
     if (k > a[chn]) then
     begin
       str(10 + a[chn] - k, txt);
-      insert(txt, b[i], 2);
+      insert(txt[1], b[i], 2);
       chn := chn + 2;
       check2 := true;
       if chn = 8 then
@@ -157,7 +157,7 @@ begin
     else
     begin
       str(a[chn] - k, txt);
-      insert(txt, b[i], 2);
+      insert(txt[1], b[i], 2);
       chn := chn + 2;
       if chn = 8 then
         chn := 1;
@@ -170,26 +170,26 @@ begin
       if (check1 = true) and (check2 = true) then
       begin
         str(0, txt);
-        insert(txt, b[i], 7);
+        insert(txt[1], b[i], 7);
       end;
       if (check1 = true) and (check2 = false) then
       begin
         str(1, txt);
-        insert(txt, b[i], 7)
+        insert(txt[1], b[i], 7)
       end;
       if (check1 = false) and (check2 = true) then
       begin
         str(2, txt);
-        insert(txt, b[i], 7)
+        insert(txt[1], b[i], 7)
       end;
       if (check1 = false) and (check2 = false) then
       begin
         str(random(3, 9), txt);
-        insert(txt, b[i], 7)
+        insert(txt[1], b[i], 7)
       end;
       delete(b[i], 8, 1);
-      str(random(1, 4) * 2, txt);
-      insert(txt, b[i], 7);
+      str(((random(1, 4)) * 2), txt);
+      insert(txt[1], b[i], 8);
       if count < 4 then
       begin
         for j := 1 to (4 - count) do        
@@ -197,6 +197,8 @@ begin
       end;
       check1 := false;
       check2 := false;
+      count := 0;
+      k := 0;
     end;
     if (k = 4) then
     begin
@@ -204,25 +206,25 @@ begin
       if (check1 = true) and (check2 = true) then
       begin
         str(0, txt);
-        insert(txt, b[i], 3);
+        insert(txt[1], b[i], 3);
       end;
       if (check1 = true) and (check2 = false) then
       begin
         str(1, txt);
-        insert(txt, b[i], 3)
+        insert(txt[1], b[i], 3)
       end;
       if (check1 = false) and (check2 = true) then
       begin
         str(2, txt);
-        insert(txt, b[i], 3)
+        insert(txt[1], b[i], 3)
       end;
       if (check1 = false) and (check2 = false) then
       begin
         str(random(3, 9), txt);
-        insert(txt, b[i], 3)
+        insert(txt[1], b[i], 3)
       end;
       delete(b[i], 8, 1);
-      str(random(0, 4) * 2 + 1, txt);
+      str((((random(0, 4)) * 2) + 1), txt);
       insert(txt, b[i], 8);
       if count < 4 then
       begin
