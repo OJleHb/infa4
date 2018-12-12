@@ -151,6 +151,7 @@ begin
   end;
   writeln('decryption task failed succesfully :D ');
   close(input);
+  writeln ('press enter to continue...');
+  readln;
   close(res);
 end.
-
